@@ -21,7 +21,7 @@ Route::get('/contact', [
 ]);
 
 Route::post('/contact', [ 
-	'as' 	=> 'contact_-store',
+	'as' 	=> 'contact_store',
 	'uses' 	=> 'ContactController@store'
 ]);
 
