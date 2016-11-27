@@ -15,7 +15,7 @@
 	</div>
 @endif
 
-{!! Form::open(['route' => 'contact_store', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['method' => 'POST', 'route' => 'contact_store', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group{{ $errors->has('inputName') ? ' has-error' : '' }}">
         {!! Form::label('inputName', 'Dit Navn') !!}
