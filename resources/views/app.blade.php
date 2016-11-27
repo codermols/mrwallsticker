@@ -7,9 +7,10 @@
 	<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-	<h1>MrWallsticker</h1>
-	@yield('content')
+	<main class="container">
+		@yield('content')
+	</main>
 
-	<script src="//code.juery.com/jquery-1.11.3.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 </body>
 </html>
