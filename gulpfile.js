@@ -16,11 +16,20 @@ require('laravel-elixir-vue-2');
 
 elixir((mix) => {
     mix.sass('app.scss')
-       .webpack('app.js');
+	.webpack('app.js')
+    .copy('node_modules/sweetalert/dist/sweetalert.css', 'resources/assets/css/libs/sweetalert.css')
+    .copy('node_modules/sweetalert/dist/sweetalert-dev.js', 'resources/assets/js/libs/sweetalert-dev.js')
+    .copy('node_modules/sweetalert/dist/sweetalert.min.js', 'resources/assets/js/libs/sweetalert.min.js')
+    .scripts([
+        'libs/sweetalert.min.js'
+    ], './public/js/libs.js')
+    .styles([
+        'libs/sweetalert.css'
+    ], './public/css/libs.css')
 
    	mix.livereload([
    		'public/css/app.css',
 	   	'resources/views/**/*blade.php',
 	   	'public/js/app.js'
-   ])	
+   ])
 });
