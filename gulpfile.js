@@ -24,7 +24,8 @@ elixir((mix) => {
         'libs/sweetalert.min.js'
     ], './public/js/libs.js')
     .styles([
-        'libs/sweetalert.css'
+        'libs/sweetalert.css',
+        'libs/dropzone.css'
     ], './public/css/libs.css')
 
    	mix.livereload([

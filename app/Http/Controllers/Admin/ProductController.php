@@ -34,6 +34,20 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
+    public function addPhoto(Request $request)
+    {
+        $file = $request->file('file');
+        
+        $fileName = time() . $file->getClientOriginalName();
+
+        $file->move('images/products', $fileName);
+
+        // find the product
+
+        // Attach the image to the product
+        
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -58,22 +72,21 @@ class ProductController extends Controller
         $request->file('image')->move(base_path() . '/public/images/products/', $imageName);
 
         // Process the electronic download
-         
-        if ($request->file('download')) {
+        // if ($request->file('download')) {
 
-            $downloadName = $product->sku. '.' . $request->file('download')->getClientOriginalExtension();
+        //     $downloadName = $product->sku. '.' . $request->file('download')->getClientOriginalExtension();
             
-            $request->file('download')->move(storage_path() . '/downloads/', $downloadName);
+        //     $request->file('download')->move(storage_path() . '/downloads/', $downloadName);
         
-            $product->download = $downloadName;
-            $product->save();
+        //     $product->download = $downloadName;
+        //     $product->save();
 
-        }
+        // }
 
         flash('Produktet er oprettet.');
 
         return \Redirect::route('products.edit', 
-            array($product->id))->with('message', 'The product has been added!');   
+            array($product->id))->flash('message', 'The product has been added!');   
     }
 
     /**

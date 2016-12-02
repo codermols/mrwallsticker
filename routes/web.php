@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\addPhoto;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,8 +35,9 @@ Route::group(['middleware' => ['web']], function()
 	]);
 
 	Route::resource('discounts', 'DiscountsController', ['only' => ['index']]);
+	Route::resource('products', 'ProductController', ['only' => ['index', 'show']]);
 
-	Route::resource('products', 'ProductController', array('only' => 'index, show'));
+
 
 
 	// Login Routes...
@@ -55,6 +58,7 @@ Route::group(['middleware' => ['web']], function()
 	Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function() 
 	{
 	    Route::get('/', 'IndexController@index');
+    	Route::post('products/create/photos', 'ProductController@addPhoto');
 	    Route::resource('products', 'ProductController');
 	});
 });
