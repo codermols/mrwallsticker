@@ -1,17 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\addPhoto;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 Route::group(['middleware' => ['web']], function() 
 {
 
@@ -37,8 +25,8 @@ Route::group(['middleware' => ['web']], function()
 	Route::resource('discounts', 'DiscountsController', ['only' => ['index']]);
 	Route::resource('products', 'ProductController', ['only' => ['index', 'show']]);
 
-
-
+	Route::post('purchases', 'PurchasesController@store');
+	Route::post('checkout', 'PurchasesController@index');
 
 	// Login Routes...
 	Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);

@@ -27,7 +27,7 @@ class AddDeletedAtToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+            $table->softDeletes();
         });
     }
 }

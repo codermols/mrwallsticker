@@ -17,13 +17,14 @@
             <strong>${{ $product->price }}</strong><br />
             {{ $product->description }}
           </p>
-          <form action="#" method="POST">
+          <form action="/purchases" method="POST">
+            {{ csrf_field() }}
             <script
               src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="pk_test_F9cE9sgu3jZMUXHCeMV1EctW"
-              data-amount="999"
+              data-key="{{ config('services.stripe.key') }}"
+              data-amount="{{ $product->price }}"
               data-name="MrWallsticker"
-              data-description="Widget"
+              data-description="{{ $product->description }}"
               data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
               data-locale="auto"
               data-zip-code="true"
