@@ -28,9 +28,10 @@ class ProductCreateRequest extends FormRequest
         return [
             'name'              => 'required',
             'sku'               => 'required|unique:products,sku,' . $this->get('id'),
-            // 'image'             => 'required_without:has_image|mimes:jpg,jpeg,png',
+            'image'             => 'required_without:has_image|mimes:jpg,jpeg,png',
             'price'             => 'required|numeric',
             'description'       => 'required',
+            'category_name'     => 'required',
             'is_customizable'   => 'boolean',
             'is_downloadable'   => 'boolean' 
         ];

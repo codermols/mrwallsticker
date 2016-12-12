@@ -19,7 +19,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        flash()->overlay('Success', 'Produkt oprettet!');
         $products = Product::all();
         return view('admin.products.index', compact('products'));
     }
@@ -60,6 +59,7 @@ class ProductController extends Controller
           'sku'         	=> $request->get('sku'),
           'price'       	=> $request->get('price'),
           'description' 	=> $request->get('description'),
+          'category'        => $request->get('category'),
           'is_customizable' => $request->get('is_customizable'),
           'is_downloadable' => $request->get('is_downloadable')
         ));
@@ -128,6 +128,7 @@ class ProductController extends Controller
             'sku' => $request->get('sku'),
             'price' => $request->get('price'),
             'description' => $request->get('description'),
+            'category' => $request->get('category'),
             'is_downloadable' => $request->get('is_downloadable')
         ]);
 

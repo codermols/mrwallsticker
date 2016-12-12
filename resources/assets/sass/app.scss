@@ -22,11 +22,29 @@ h1 {
 }
 
 h2 {
-   @include rem('font-size', 22px); 
+   @include rem('font-size', 22px);
+   @include rem('margin-bottom', 65px);
 }
 
 h3 {
   @include rem('font-size', 18px);
+}
+
+
+.banner {
+
+  h1 {
+    @include rem('font-size', 33px);
+  }
+  p {
+    @include rem('font-size', 12px);
+  }
+
+  a {
+    @include rem('font-size', 10px);
+  }
+
+  @include rem('margin-bottom', 71px);
 }
 
 .btn {
@@ -41,19 +59,10 @@ h3 {
     color: $text-color;
 }
 
-@media screen and (min-width:768px){
-    .navbar-brand-centered {
-        position: absolute;
-        left: 50%;
-        display: block;
-        width: 160px;
-        text-align: center;
-    }
-    .navbar>.container .navbar-brand-centered, 
-    .navbar>.container-fluid .navbar-brand-centered {
-        margin-left: -80px;
-    }
+.text-align-center {
+  text-align: center;
 }
+
 
 .navbar-nav>li>.dropdown-menu {
   margin-top: 20px;
@@ -114,4 +123,18 @@ h3 {
 
 .mega-dropdown-menu .form-group {
   margin-bottom: 3px;
+}
+
+@media screen and (min-width:768px){
+    .navbar-brand-centered {
+        position: absolute;
+        left: 50%;
+        display: block;
+        width: 160px;
+        text-align: center;
+    }
+    .navbar>.container .navbar-brand-centered, 
+    .navbar>.container-fluid .navbar-brand-centered {
+        margin-left: -80px;
+    }
 }

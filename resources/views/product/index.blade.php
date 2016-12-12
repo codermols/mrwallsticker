@@ -7,7 +7,7 @@
 @if (count($products) > 0)
   @foreach ($products as $product)
     <div class="row product">
-      <div class="span4">
+      <div class="col-md-12">
         <div class="clearfix content-heading">
           <img class="pull-left col-md-3 img-responsive" src="/images/products/{{ $product->sku }}.jpg"/>
           <h3>

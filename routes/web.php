@@ -3,10 +3,7 @@
 Route::group(['middleware' => ['web']], function() 
 {
 
-	Route::get('/', function () {
-		Session::flash('status', 'hello there');
-	    return view('welcome');
-	});
+	Route::get('/', 'HomeController@index');
 
 	Route::get('/om', function () {
 		return view('about.index');
@@ -48,6 +45,8 @@ Route::group(['middleware' => ['web']], function()
 	    Route::get('/', 'IndexController@index');
     	Route::post('products/create/photos', 'ProductController@addPhoto');
 	    Route::resource('products', 'ProductController');
+	    Route::get('/products/category', 'CategoryController@index');
+	    Route::post('products/create/category', 'CategoryController@store');
 	});
 });
 

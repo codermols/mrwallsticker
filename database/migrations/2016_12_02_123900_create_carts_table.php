@@ -18,7 +18,7 @@ class CreateCartsTable extends Migration
             $table->integer('user_id');
             $table->integer('order_id')->nullable();
             $table->integer('product_id');
-            $table->integer('complete')-default(0);
+            $table->integer('complete')->default(0);
             $table->integer('qty');
             $table->decimal('price', 8, 2);
             $table->timestamps();

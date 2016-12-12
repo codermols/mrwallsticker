@@ -40,12 +40,17 @@
     {!! Form::label('description', 'Produkt Beskrivelse') !!}
     {!! Form::textarea('description', null, array('class'=>'form-control', 'placeholder'=>'Skriv en kort produkt beskrivelse')) !!}
 </div>
+
+<div class="form-group">
+    {!! Form::label('category_name', 'Produkt kategori') !!}
+    {!! Form::textarea('category_name', null, array('class'=>'form-control', 'placeholder'=>'Opret ny kategori')) !!}
+</div>
  
 {!! Form::submit('Opret Produkt!', array('class'=>'btn btn-primary')) !!}
 
 {!! Form::close() !!}
 </div>
-<form action="/admin/products/create/photos" method="post" class="dropzone">
+<form action="/admin/products/create/photos" method="post" class="dropzone col-md-6">
     {{ csrf_field() }}
 {{--     {!! Form::label('image', 'Produkt billede') !!}
     {!! Form::file('image', null, array('required', 'class'=>'')) !!} --}}

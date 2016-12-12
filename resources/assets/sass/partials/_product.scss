@@ -4,9 +4,9 @@
 	@include rem('margin-right', 20px);
 	@include rem('margin-bottom', 20px);
 
-	&:nth-child(4n) {
-		@include rem('margin-right', 0px);
-	}
+	// &:nth-child(4n) {
+	// 	@include rem('margin-right', 0px);
+	// }
 
 	.product__image {
 		@include rem('margin-bottom', 20px);
@@ -15,7 +15,6 @@
 
 	.product__category {
 		@include rem('font-size', 12px);
-		font-weight: 200;
 		font-style: italic;
 	}
 
@@ -30,21 +29,21 @@
 	}
 
 	.rating {
-
+		display:flex;
+		-webkit-align-items: center;
+		align-items: center;
+		justify-content: space-around;
 		img {
-			display: inline;
 			@include rem('max-height', 12px);
-			vertical-align: bottom;
+			@include rem('margin-right', 6px);
 		}
 
 		.prices {
-			span {
-				vertical-align: middle;
-			}
-			display: inline;
+			margin-left: auto;
 			@include rem('font-size', 19px);
 			font-weight: bold;
 			.old-price {
+				@include rem('margin-right', 15px);
 				text-decoration: line-through;
 			}
 

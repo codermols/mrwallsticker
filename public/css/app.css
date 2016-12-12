@@ -9,11 +9,6 @@
   margin-bottom: 2rem;
 }
 
-.product:nth-child(4n) {
-  margin-right: 0px;
-  margin-right: 0rem;
-}
-
 .product .product__image {
   margin-bottom: 20px;
   margin-bottom: 2rem;
@@ -23,7 +18,6 @@
 .product .product__category {
   font-size: 12px;
   font-size: 1.2rem;
-  font-weight: 200;
   font-style: italic;
 }
 
@@ -40,25 +34,31 @@
   text-decoration: underline;
 }
 
+.product .rating {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .product .rating img {
-  display: inline;
   max-height: 12px;
   max-height: 1.2rem;
-  vertical-align: bottom;
+  margin-right: 6px;
+  margin-right: 0.6rem;
 }
 
 .product .rating .prices {
-  display: inline;
+  margin-left: auto;
   font-size: 19px;
   font-size: 1.9rem;
   font-weight: bold;
 }
 
-.product .rating .prices span {
-  vertical-align: middle;
-}
-
 .product .rating .prices .old-price {
+  margin-right: 15px;
+  margin-right: 1.5rem;
   text-decoration: line-through;
 }
 
@@ -8920,11 +8920,33 @@ h1 {
 h2 {
   font-size: 22px;
   font-size: 2.2rem;
+  margin-bottom: 65px;
+  margin-bottom: 6.5rem;
 }
 
 h3 {
   font-size: 18px;
   font-size: 1.8rem;
+}
+
+.banner {
+  margin-bottom: 71px;
+  margin-bottom: 7.1rem;
+}
+
+.banner h1 {
+  font-size: 33px;
+  font-size: 3.3rem;
+}
+
+.banner p {
+  font-size: 12px;
+  font-size: 1.2rem;
+}
+
+.banner a {
+  font-size: 10px;
+  font-size: 1rem;
 }
 
 .btn {
@@ -8939,18 +8961,8 @@ h3 {
   color: #2c2c2c;
 }
 
-@media screen and (min-width: 768px) {
-  .navbar-brand-centered {
-    position: absolute;
-    left: 50%;
-    display: block;
-    width: 160px;
-    text-align: center;
-  }
-  .navbar > .container .navbar-brand-centered,
-  .navbar > .container-fluid .navbar-brand-centered {
-    margin-left: -80px;
-  }
+.text-align-center {
+  text-align: center;
 }
 
 .navbar-nav > li > .dropdown-menu {
@@ -9005,6 +9017,20 @@ h3 {
 
 .mega-dropdown-menu .form-group {
   margin-bottom: 3px;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-brand-centered {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 160px;
+    text-align: center;
+  }
+  .navbar > .container .navbar-brand-centered,
+  .navbar > .container-fluid .navbar-brand-centered {
+    margin-left: -80px;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */
