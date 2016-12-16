@@ -1,6 +1,9 @@
 // Body
 $body-bg: #f5f8fa;
 
+// Til Header og Footer primært
+$grey: #f0f0e8;
+
 // Borders
 $laravel-border-color: darken($body-bg, 10%);
 $list-group-border: $laravel-border-color;
@@ -28,6 +31,7 @@ $navbar-default-bg: #fff;
 
 // Buttons
 $btn-default-color: $text-color;
+$border-radius-large: 5px;
 
 // Inputs
 $input-border: lighten($text-color, 40%);

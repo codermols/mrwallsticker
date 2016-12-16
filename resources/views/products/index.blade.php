@@ -14,7 +14,7 @@
           {!! link_to_route('products.show', $product->name, [$product->id]) !!}
           </h3>
           <p>
-            <strong>${{ $product->price }}</strong><br />
+            <strong>{{ $product->price }} DKK</strong><br />
             {{ $product->description }}
           </p>
           <form action="/purchases" method="POST">

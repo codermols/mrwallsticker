@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,13 +13,15 @@ class ProductController extends Controller
     {
     	$products = Product::orderBy('name', 'asc')->get();
 
-    	return view('product.index', compact('products'));
+    	return view('products.index', compact('products'));
     }
 
-    public function show($id)
+    public function show($name, $id = null)
     {
-    	$product = Product::findOrFail($id);
+        
+        $product = Product::slug($name)->first();
 
-    	return view('product.show', compact('product'));
+        return view('products.show', compact('product'));
+
     }
 }

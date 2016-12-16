@@ -1,5 +1,7 @@
 <?php
 
+use App\Category;
+
 Route::group(['middleware' => ['web']], function() 
 {
 
@@ -21,6 +23,7 @@ Route::group(['middleware' => ['web']], function()
 
 	Route::resource('discounts', 'DiscountsController', ['only' => ['index']]);
 	Route::resource('products', 'ProductController', ['only' => ['index', 'show']]);
+	Route::get('products/{name}', 'ProductController@show');
 
 	Route::post('purchases', 'PurchasesController@store');
 	Route::post('checkout', 'PurchasesController@index');
@@ -43,10 +46,12 @@ Route::group(['middleware' => ['web']], function()
 	Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function() 
 	{
 	    Route::get('/', 'IndexController@index');
-    	Route::post('products/create/photos', 'ProductController@addPhoto');
+	    Route::get('categories', 'CategoryController@index');
+	    Route::post('categories/create', 'CategoryController@store');
+	    Route::get('categories/create', 'CategoryController@create');
 	    Route::resource('products', 'ProductController');
-	    Route::get('/products/category', 'CategoryController@index');
-	    Route::post('products/create/category', 'CategoryController@store');
+	    Route::post('products/{id}/photos', 'ProductController@addPhoto');
+	    Route::get('products/{name}', 'ProductController@show');
 	});
 });
 

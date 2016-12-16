@@ -2,7 +2,7 @@
 
 @section('content')
 
-<img class="pull-left product-img" src="/imgs/products/{{ $product->sku }}.jpg"/>
+{{-- <img class="pull-left product-img" src="/images/products/{{ $product->sku }}.jpg"/> --}}
 
 <h1>{{ $product->name }}</h1>
 

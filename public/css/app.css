@@ -66,6 +66,137 @@
   color: #f55a5a;
 }
 
+footer {
+  background-color: #f0f0e8;
+  border-radius: 7px;
+  border-radius: 0.7rem;
+  padding: 50px;
+  padding: 5rem;
+}
+
+footer .rabat-kupon {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+footer .rabat-kupon h4 {
+  font-size: 22px;
+  font-size: 2.2rem;
+}
+
+footer .rabat-kupon p {
+  color: #787c7d;
+  font-size: 12px;
+  font-size: 1.2rem;
+}
+
+footer .rabat-kupon button {
+  margin-top: 38px;
+  margin-top: 3.8rem;
+  font-size: 13px;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+
+footer .rabat-kupon input {
+  padding: 25px;
+  padding: 2.5rem;
+  border: none;
+  text-align: center;
+  color: #c0c6c8;
+  margin-top: 38px;
+  margin-top: 3.8rem;
+}
+
+footer .rabat-kupon input::-webkit-input-placeholder {
+  color: #c0c6c8;
+}
+
+footer .rabat-kupon input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #c0c6c8;
+}
+
+footer .rabat-kupon input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #c0c6c8;
+}
+
+footer .rabat-kupon input:-ms-input-placeholder {
+  color: #c0c6c8;
+}
+
+.betalingskort {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  margin: 1.5rem;
+}
+
+.betalingskort img {
+  max-height: 32px;
+  max-height: 3.2rem;
+  margin-right: 7px;
+  margin-right: 0.7rem;
+}
+
+.footer-nav {
+  margin-top: 30px;
+  margin-top: 3rem;
+}
+
+.footer-nav ul {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+}
+
+.footer-nav ul li {
+  margin-right: 25px;
+  margin-right: 2.5rem;
+  list-style-type: none;
+}
+
+.footer-nav ul li a {
+  color: #2c2c2c;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.footer-nav .footer-nav__logo {
+  text-align: right;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.footer-nav .footer-nav__logo span {
+  font-size: 20px;
+  font-size: 2rem;
+  line-height: .8rem;
+  font-weight: 700;
+  direction: rtl;
+}
+
+.footer-nav .footer-nav__logo p {
+  font-size: 10px;
+  font-size: 1rem;
+}
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -1489,7 +1620,7 @@ img {
 }
 
 .img-rounded {
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .img-thumbnail {
@@ -3356,7 +3487,7 @@ select[multiple].input-sm,
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 select.input-lg, .input-group-lg > select.form-control,
@@ -3381,7 +3512,7 @@ select[multiple].input-lg,
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .form-group-lg select.form-control {
@@ -4057,7 +4188,7 @@ fieldset[disabled] .btn-link:focus {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .btn-sm, .btn-group-sm > .btn {
@@ -4572,7 +4703,7 @@ tbody.collapse.in {
 .input-group-lg > .input-group-btn > .input-group-addon.btn {
   padding: 10px 16px;
   font-size: 18px;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .input-group-addon input[type="radio"],
@@ -5514,14 +5645,14 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 
 .pagination-lg > li:first-child > a,
 .pagination-lg > li:first-child > span {
-  border-bottom-left-radius: 6px;
-  border-top-left-radius: 6px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 .pagination-lg > li:last-child > a,
 .pagination-lg > li:last-child > span {
-  border-bottom-right-radius: 6px;
-  border-top-right-radius: 6px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .pagination-sm > li > a,
@@ -5752,7 +5883,7 @@ a.badge:hover, a.badge:focus {
 
 .container .jumbotron,
 .container-fluid .jumbotron {
-  border-radius: 6px;
+  border-radius: 5px;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -6738,7 +6869,7 @@ button.list-group-item-danger.active:focus {
 
 .well-lg {
   padding: 24px;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .well-sm {
@@ -6820,7 +6951,7 @@ button.close {
   background-color: #fff;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
+  border-radius: 5px;
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
   outline: 0;
@@ -7087,7 +7218,7 @@ button.close {
   background-clip: padding-box;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
+  border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -7113,7 +7244,7 @@ button.close {
   font-size: 14px;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
-  border-radius: 5px 5px 0 0;
+  border-radius: 4px 4px 0 0;
 }
 
 .popover-content {

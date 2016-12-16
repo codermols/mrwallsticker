@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Image;
+use App\Photo;
 use App\Product;
+use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProductCreateRequest;
@@ -30,21 +34,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
-    }
-
-    public function addPhoto(Request $request)
-    {
-        $file = $request->file('file');
-        
-        $fileName = time() . $file->getClientOriginalName();
-
-        $file->move('images/products', $fileName);
-
-        // find the product
-
-        // Attach the image to the product
-        
+        $products = Product::all();
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories', 'products'));
     }
 
     /**
@@ -58,35 +50,69 @@ class ProductController extends Controller
           'name'        	=> $request->get('name'),
           'sku'         	=> $request->get('sku'),
           'price'       	=> $request->get('price'),
+          // 'photoPath'       => $request->get('photoPath'),
           'description' 	=> $request->get('description'),
-          'category'        => $request->get('category'),
-          'is_customizable' => $request->get('is_customizable'),
-          'is_downloadable' => $request->get('is_downloadable')
+          'category_id'     => $request->get('category_name'),
+          'is_customizable' => $request->get('is_customizable')
         ));
-
-        $product->save();
-
-        // Process the uploaded image
-        $imageName = $product->sku. '.' . $request->file('image')->getClientOriginalExtension();
         
-        $request->file('image')->move(base_path() . '/public/images/products/', $imageName);
+        $categories = Category::all();
+        
+        // $category = new Category;
+        // $category->category_name = $request->get('category_name');
+        
+        // $categories->products()->associate($category);
+        // $category->save();
+        
+        
 
-        // Process the electronic download
-        // if ($request->file('download')) {
 
-        //     $downloadName = $product->sku. '.' . $request->file('download')->getClientOriginalExtension();
+        
+        // // checks if the user wants to upload a file
+        // if ($request->hasFile('photoPath')) {
+        //     $photo = $request->file('photoPath');
             
-        //     $request->file('download')->move(storage_path() . '/downloads/', $downloadName);
-        
-        //     $product->download = $downloadName;
-        //     $product->save();
+        //     $fileName = time() . $photo->getClientOriginalName();
+
+        //     $location = public_path('images/products/' . $fileName);
+        //     Image::make($photo)->save($location);
+
+        //     $product->photoPath = $fileName;
+
+
+        //     // // find en måde at gemme billedet under photo
+        //     // $photoModel = new Photo(array(
+        //     //         'photoPath'  => $fileName
+        //     //     ));
+
+        //     // $product->photos()->save($photoModel);
+        //     // 
+        //     $productPhoto = new Photo;
+        //     $productPhoto->photoPath = $fileName;
+        //     $productPhoto->product_id = $product->photos;
+        //     // $product->photos()->save($productPhoto);
+        //     // $productPhoto->product()->associate($product);
 
         // }
+        
 
-        flash('Produktet er oprettet.');
+        $product->save();
+        flash()->success('Yeah!', 'Produktet er oprettet.');
 
-        return \Redirect::route('products.edit', 
-            array($product->id))->flash('message', 'The product has been added!');   
+
+        return redirect()->back();  
+    }
+
+    public function addPhoto(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $file = $request->file('file');
+        $filename = $product->sku . '-' . $file->getClientOriginalName();
+
+       $file->move('images/products', $filename);
+
+       $product->photos()->create(['photoPath' => "/images/products/{$filename}"]);
     }
 
     /**
@@ -95,9 +121,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($name, $id = null)
     {
-        //
+
+        $product = Product::slug($name)->first();
+
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -124,12 +153,12 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         $product->update([
-            'name' => $request->get('name'), 
-            'sku' => $request->get('sku'),
-            'price' => $request->get('price'),
-            'description' => $request->get('description'),
-            'category' => $request->get('category'),
-            'is_downloadable' => $request->get('is_downloadable')
+            'name'              => $request->get('name'), 
+            'sku'               => $request->get('sku'),
+            'price'             => $request->get('price'),
+            'description'       => $request->get('description'),
+            'category'          => $request->get('category'),
+            'is_downloadable'   => $request->get('is_downloadable')
         ]);
 
         return \Redirect::route('products.edit', 

@@ -1,0 +1,101 @@
+footer {
+	background-color: $grey;
+	@include rem('border-radius', 7px);
+	@include rem('padding', 50px);
+	.rabat-kupon {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		
+		h4 {
+			@include rem('font-size', 22px);
+		}
+
+		p {
+			color: #787c7d;
+			@include rem('font-size', 12px);
+
+		}
+
+		button {
+			@include rem('margin-top', 38px);
+			@include rem('font-size', 13px);
+			text-transform: uppercase;
+		}
+
+		input {
+			@include rem('padding', 25px);
+			border: none;
+			text-align: center;
+			color: #c0c6c8;
+			@include rem('margin-top', 38px);
+
+			&::-webkit-input-placeholder {
+			   color: #c0c6c8;
+			}
+
+			&:-moz-placeholder { /* Firefox 18- */
+			   color: #c0c6c8;  
+			}
+
+			&::-moz-placeholder {  /* Firefox 19+ */
+			   color: #c0c6c8;  
+			}
+
+			&:-ms-input-placeholder {  
+			   color: #c0c6c8;  
+			}
+		}
+	}
+}
+
+.betalingskort {
+	display: flex;
+	justify-content: flex-end;
+	margin: 1.5rem;
+
+	img {
+		@include rem('max-height', 32px);
+		@include rem('margin-right', 7px);
+	}
+}
+
+.footer-nav {
+	@include rem('margin-top', 30px);
+	
+	ul {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		li {
+
+			@include rem('margin-right', 25px);
+			list-style-type: none;
+			a {
+				color: $text-color;
+				text-transform: uppercase;
+				@include rem('font-size', 10px);
+				font-weight: $headings-font-weight;
+			}
+		}
+
+	}
+
+	.footer-nav__logo {
+		text-align: right;
+		margin-right: 0;
+		padding-right: 0;
+		span {
+			@include rem('font-size', 20px);
+			line-height: .8rem;
+			font-weight: 700;
+			direction: rtl;
+		}
+		p {
+			@include rem('font-size', 10px);
+		}
+	}
+}
+

@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Order;
+use App\Photo;
+use App\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,21 +13,28 @@ class Product extends Model
 	use SoftDeletes;
 	
 	protected $dates = ['deleted_at'];
-	protected $fillable = ['name', 'sku', 'price', 'description', 'is_customizable', 'is_downloadable'];
+	protected $fillable = ['name', 'sku', 'price', 'description', 'is_customizable', 'category_id', 'photo_id'];
+
+    public function scopeSlug($query, $name)
+    {
+        $name = str_replace('-', ' ', $name);
+
+        return $query->where(compact('name'));
+    }
 	
     public function category()
     {
-    	return $this->belongsTo('App\Category');
+    	return $this->belongsTo(Category::class);
     }
 
     public function orders()
     {
-    	return $this->hasMany('App\Order');
+    	return $this->hasMany(Order::class);
     }
 
     public function photos()
     {
-        return $this->hasMany('App\Products');
+        return $this->hasMany('App\Photo', 'product_id');
     }
 }
 

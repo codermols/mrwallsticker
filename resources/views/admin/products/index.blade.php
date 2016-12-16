@@ -2,18 +2,18 @@
 
 @section('content')
 
-<h1>Manage Products</h1>
+<h1>Dine produkter</h1>
 
   @if (count($products) > 0)
     <p>
-      <a href="{{ URL::Route('products.create') }}" class="btn btn-success">Create a Product</a>
+      <a href="{{ URL::Route('products.create') }}" class="btn btn-success">Opret et produkt</a>
     </p>
 
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
+          <th>Navn</th>
+          <th>Pris</th>
           <th></th>
         </tr>
       </thead>
@@ -24,12 +24,12 @@
               <a href="{{ URL::route('products.edit', $product->id) }}">{{ $product->name }}</a>
             </td>
             <td>
-              ${{ $product->price }}
+              {{ $product->price }} DKK
             </td>
             <td>
               {!! Form::open(array('route' => array('products.destroy', $product->id), 'method' => 'delete')) !!}
-              <button type="submit" class="btn btn-success" href="{{ URL::route('products.destroy', $product->id) }}" title="Delete Product">
-              Delete
+              <button type="submit" class="btn btn-success" href="{{ URL::route('products.destroy', $product->id) }}" title="Slet Produkt">
+              Slet
               </button>
               {!! Form::close() !!}
             </td>
@@ -39,7 +39,7 @@
     </table>
   @else
     <p>
-      You haven't created any products. <a href="/admin/products/create">Create a Product</a>
+     Du har endnu ikke oprettet et produkt. <a href="/admin/products/create">Opret produkt</a>
     </p>
   @endif
 
