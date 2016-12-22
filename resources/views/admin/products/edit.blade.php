@@ -3,14 +3,14 @@
 @section('content')
 
 <p>
-    <a href="{{ URL::Route('products.index') }}">&laquo; Tilbage til produkter</a>
+    <a href="{{ URL::Route('admin.products.index') }}">&laquo; Tilbage til produkter</a>
 </p>
 
 <div class="col-xs-6">
 
     <h1>Rediger {{ $product->name }}</h1>
 
-    {!! Form::model($product, ['route' => ['products.update', $product->id], 'method' => 'put', 'class' => 'form', 'novalidate' => 'novalidate', 'files' => true]) !!}
+    {!! Form::model($product, ['route' => ['admin.products.update', $product->id], 'method' => 'put', 'class' => 'form', 'novalidate' => 'novalidate', 'files' => true]) !!}
         
         {!! Form::hidden('id') !!}
 
@@ -43,6 +43,10 @@
         </div>
     </div>
     <div class="form-group">
+        {{ Form::label('category_id', 'Vælg kategori') }}
+        {{ Form::select('category_id', $categoryArray, null, array('class' => 'form-control')) }}
+    </div>
+    <div class="form-group">
         {!! Form::label('Produktbeskrvelse') !!}
         {!! Form::textarea('description', null, array('class'=>'form-control', 'placeholder'=>'Skriv en produktbeskrivelse...')) !!}
     </div>
@@ -54,12 +58,16 @@
 
 <div class="col-xs-6">
     <h2>Upload billeder til {{ $product->name }}</h2>
-    @if(file_exists(public_path()."/images/products/".$product->sku.".jpg"))
-      <img class="img-responsive" src="/images/products/{{ $product->sku }}.jpg" />
-    @endif
     <form action="/admin/products/{{$product->id}}/photos" class="dropzone" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
     </form>
+    @foreach ($product->photos as $photo)
+        
+   
+        @if(file_exists(public_path()."{$photo->photoPath}"))
+          <img class="img-responsive" src="{{ $photo->photoPath }}" />
+        @endif
+    @endforeach
 
 </div>
 

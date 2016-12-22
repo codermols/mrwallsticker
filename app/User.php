@@ -10,12 +10,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-    use Billable;
-
-    protected $dates = [
-        'trial_ends_at',
-        'ends_at'
-    ];
 
     /**
      * The attributes that are mass assignable.
@@ -38,5 +32,10 @@ class User extends Authenticatable
     public function cart()
     {
         return $this->hasMany(Cart::class)->where('complete', 0);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

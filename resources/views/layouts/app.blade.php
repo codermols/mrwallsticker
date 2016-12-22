@@ -54,7 +54,9 @@
             <div class="collapse navbar-collapse js-navbar-collapse">
               <ul class="nav navbar-nav">
                 <li class="dropdown mega-dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">MENU</a>
+                  <a href="#" class="dropdown-toggle nav-bars" data-toggle="dropdown">
+                    <img class="img-responsive" height="22" width="22" src="/images/icons/menu-icon.svg" class="nav-bars">MENU
+                  </a>
                   <ul class="dropdown-menu mega-dropdown-menu row">
                     <li class="col-sm-3">
                       <ul>
@@ -144,28 +146,31 @@
                         <li><a href="{{ url('/login') }}">Log ind</a></li>
                         <li><a href="{{ url('/opret') }}">Opret bruger</a></li>
                     @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->email }} <span class="caret"></span>
-                            </a>
+                      <li class="dropdown">
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/discounts') }}">Tilbud</a>
-                                    <a href="{{ url('/admin') }}">Dashboard</a>
-                                    <a href="{{ url('/logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                        <a href="/cart"><img class="img-responsive" src="/images/icons/shoppingbag-icon.svg" />
+                          @if (Auth::user()->cart->count() !== 0)
+                            <i>{{Auth::user()->cart->count()}}</i>
+                          @endif
+                        </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                          <img class="img-responsive" src="/images/icons/profile-icon.svg" />
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ url('/admin') }}">Dashboard</a>
+                                <a href="{{ url('/logout') }}"
+                                    onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
 
-                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                                
-                            </ul>
-                        </li>
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>  
+                        </ul>
+                      </li>
                     @endif
                 </ul>
             </div>

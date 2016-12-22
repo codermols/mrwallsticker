@@ -9,14 +9,21 @@
 		</div>
 	</div>
 
+{{-- 	<div class="text-center">
+		{!! Breadcrumbs::render('Forside') !!}
+	</div> --}}
 	<h2 class="text-align-center">Populære Produkter</h2>
 
 	@if (count($products) > 0)
 		@foreach ($products as $product)
 		  	<div class="product col-md-3">
+		  		@foreach ($product->photos as $photo)
 		  		<div class="product__image">
-		  			<img src="/images/products/1481837810draw.jpg" class="img-responsive">
+		  			@if ($loop->first)
+	  					<img src="{{$photo->photoPath}}" class="img-responsive">
+		  			@endif
 		  		</div>
+				@endforeach
 		  		<span class="product__category">{{ $product->category->name }}</span>
 		  		<h3 class="product__title"><a href="/products/{{$product->name}}">{{ $product->name }}</a></h3>
 		  		<div class="rating">

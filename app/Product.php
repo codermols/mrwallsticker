@@ -12,8 +12,11 @@ class Product extends Model
 {
 	use SoftDeletes;
 	
-	protected $dates = ['deleted_at'];
+    protected $casts = ['price'];
+    protected $dates = ['deleted_at'];
 	protected $fillable = ['name', 'sku', 'price', 'description', 'is_customizable', 'category_id', 'photo_id'];
+
+
 
     public function scopeSlug($query, $name)
     {
@@ -35,6 +38,11 @@ class Product extends Model
     public function photos()
     {
         return $this->hasMany('App\Photo', 'product_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }
 

@@ -58,49 +58,11 @@ class ProductController extends Controller
         
         $categories = Category::all();
         
-        // $category = new Category;
-        // $category->category_name = $request->get('category_name');
-        
-        // $categories->products()->associate($category);
-        // $category->save();
-        
-        
-
-
-        
-        // // checks if the user wants to upload a file
-        // if ($request->hasFile('photoPath')) {
-        //     $photo = $request->file('photoPath');
-            
-        //     $fileName = time() . $photo->getClientOriginalName();
-
-        //     $location = public_path('images/products/' . $fileName);
-        //     Image::make($photo)->save($location);
-
-        //     $product->photoPath = $fileName;
-
-
-        //     // // find en måde at gemme billedet under photo
-        //     // $photoModel = new Photo(array(
-        //     //         'photoPath'  => $fileName
-        //     //     ));
-
-        //     // $product->photos()->save($photoModel);
-        //     // 
-        //     $productPhoto = new Photo;
-        //     $productPhoto->photoPath = $fileName;
-        //     $productPhoto->product_id = $product->photos;
-        //     // $product->photos()->save($productPhoto);
-        //     // $productPhoto->product()->associate($product);
-
-        // }
-        
-
         $product->save();
         flash()->success('Yeah!', 'Produktet er oprettet.');
 
 
-        return redirect()->back();  
+        return redirect("/admin/products/{$product->id}/edit");
     }
 
     public function addPhoto(Request $request, $id)
@@ -126,7 +88,7 @@ class ProductController extends Controller
 
         $product = Product::slug($name)->first();
 
-        return view('products.show', compact('product'));
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -138,8 +100,15 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+        $categories = Category::all();
+        // lav ny array, fordi select allerede indsætter value og derfor skal vi kun bruge category name
+        $categoryArray = array();
+        foreach ($categories as $category) {
+            $categoryArray[$category->id] = $category->name;
+        }
+
         $slug = Str::slug($product->name);
-        return view('admin.products.edit', compact('product', 'slug'));
+        return view('admin.products.edit', compact('product', 'slug', 'categoryArray'));
     }
 
     /**
@@ -157,12 +126,13 @@ class ProductController extends Controller
             'sku'               => $request->get('sku'),
             'price'             => $request->get('price'),
             'description'       => $request->get('description'),
-            'category'          => $request->get('category'),
+            'category_id'       => $request->get('category_id'),
             'is_downloadable'   => $request->get('is_downloadable')
         ]);
 
-        return \Redirect::route('products.edit', 
-            array($product->id))->with('message', 'The product has been updated!');
+        flash()->success('Success', 'Produktet er redigeret');
+
+        return back();
 
     }
 
@@ -178,9 +148,8 @@ class ProductController extends Controller
 
         $product->delete();
 
-        File::delete(base_path() . '/public/imgs/products/', $id . ".png");
+        flash()->succes('Success', 'Produkt er korrekt slettet');
 
-        return \Redirect::route('admin.products.index')
-            ->with('message', 'Product deleted!');
+        return \Redirect::route('admin.products.index');
     }
 }

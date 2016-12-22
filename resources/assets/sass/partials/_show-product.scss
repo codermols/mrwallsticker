@@ -1,0 +1,51 @@
+.product-show {
+  background-color: #fff;
+  @include rem('margin-bottom', 45px);
+  display:flex;
+  justify-content: space-between;
+  .product-show__category {
+    @include rem('font-size', 22px);
+    font-weight: 200;
+    font-style: italic;
+  }
+
+  .product-show__name {
+    h1 {
+      @include rem('font-size', 35px);
+    }
+  }
+
+  .slick-prev:before, .slick-next:before {
+    @include rem('font-size', 30px);
+    color: darken(#f5f6f8, 20%) !important;
+  }
+
+  .product-show__rating {
+    .fa {
+      @include rem('font-size', 22px);
+      color: $brand-primary;
+      
+      &.checked {
+        color: $brand-primary;
+      }
+
+    }
+  }
+
+    .product-show__price {
+      display: flex;
+      display-direction: row;
+      align-items: center;
+
+      justify-content: space-between;
+      @include rem('font-size', 37px);
+      font-weight: 900;
+      color: $brand-primary;
+      @include rem('padding-top', 40px);
+
+    }
+}
+
+.product-description {
+  @include rem('margin-bottom', 77px);
+}

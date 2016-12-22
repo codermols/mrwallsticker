@@ -1,0 +1,29 @@
+.btn {
+	@include rem('font-size', 13px);
+	text-transform: uppercase;
+	border-radius: 2px;
+	font-weight: 900 !important;
+	@include rem('letter-spacing', 1px);
+	transition: background-color .25s ease-in-out;
+}
+
+.btn-lg  {
+	@include rem('padding', 16px 26px);
+	line-height: 1.3333333;
+	@include rem('border-width', 3px);
+}
+
+.btn-primary, .btn-primary:hover {
+	border-color: transparent;
+}
+
+.btn-default {
+	border-color: $text-color;
+	text-transform: none;
+	transition: border-color .15s ease-in-out;
+	&:hover, &:active, &:focus, &:visited, &:target {
+		background-color: transparent !important;
+		border-color: $brand-primary !important;
+	}
+}
+

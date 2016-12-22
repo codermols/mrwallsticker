@@ -6,7 +6,7 @@
 <h1>Opret nyt produkt</h1>
 
 
-{!! Form::open(array('route' => 'products.store', 'class' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
+{!! Form::open(array('route' => 'admin.products.store', 'class' => 'form', 'novalidate' => 'novalidate', 'files' => true)) !!}
     
 @if (count($errors) > 0)
 	<div class="alert alert-danger">

@@ -7,9 +7,15 @@
 // Partials
 @import "partials/product";
 @import "partials/footer";
+@import "partials/show-product";
+@import "partials/kurv";
+
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+//Components
+@import "components/buttons";
 
 @import "sweetalert";
 
@@ -29,6 +35,60 @@ h2 {
 
 h3 {
   @include rem('font-size', 18px);
+}
+
+*:focus {
+    outline: none;
+}
+
+.checked {
+  color: $brand-primary;
+}
+
+.navbar-default {
+    background-color: transparent;
+    border-color: transparent;
+    @include rem('margin-bottom', 70px);
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: $text-color;
+}
+
+.navbar-right .dropdown {
+  i {
+    position: absolute;
+    background-color: $brand-primary;
+    color: white;
+    @include rem('right', 10px);
+    @include rem('bottom', 9px);
+    border-radius: 50%;
+    line-height: 16px;
+    width: 16px;
+    text-align: center;
+    @include rem('padding-bottom', -16px);
+    @include rem('font-size', 10px);
+  }
+
+  a {
+
+    display: inline-block;
+  }
+  img {
+    display: inline;
+    height: 25px;
+  }
+}
+
+.nav-bars {
+  @include rem('font-size', 10px);
+  img {
+    margin-right: 15px;
+  }
+}
+
+a.nav-bars img {
+  display: inline;
 }
 
 
