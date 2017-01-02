@@ -89,7 +89,6 @@
 	<div class="col-md-6">
 		<div class="review">
 			    @foreach ($reviews as $review)
-					@if (count($reviews) > 0) 
 						<small>{{$review->name}}</small>
 						<small class="pull-right">Skrevet d. {{ $review->created_at }}</small>
 
@@ -98,7 +97,6 @@
 						<h3>{{$review->title}}</h3>
 						<p>{{$review->review}}</p>
 					
-					@else
 					<form action="/products/{{$product->id}}/reviews/create" method="post">
 						{{ csrf_field() }}
 						<div class="form-group">
