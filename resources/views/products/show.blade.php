@@ -88,45 +88,43 @@
 	<h3 class="text-align-center">Anmeldelser</h3>
 	<div class="col-md-6">
 		<div class="review">
-			    @foreach ($reviews as $review)
-						<small>{{$review->name}}</small>
-						<small class="pull-right">Skrevet d. {{ $review->created_at }}</small>
-
-						{{ratingToStars($review->rating)}}	
-
-						<h3>{{$review->title}}</h3>
-						<p>{{$review->review}}</p>
-					
-					<form action="/products/{{$product->id}}/reviews/create" method="post">
-						{{ csrf_field() }}
-						<div class="form-group">
-							<label for="review_title">Overskrift</label>
-							<input type="text" name="review_title" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label for="review_title">Skriv om produktet her</label>
-							<textarea name="review_content" class="form-control">Skriv din anmeldelse her....</textarea>
-						</div>
-						<div class="form-group">
-						<label for="review_rating">Vælg mellem 1-5, hvor 1 er ringest og 5 er højest</label>
-							<select name="review_rating" class="form-control">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-							</select>
-						</div>
-						<button type="submit" class="btn btn-primary btn-lg">Opret anmeldelse</button>
-					</form>
-
+		    @foreach ($reviews as $review)
 					<small>{{$review->name}}</small>
+					<small class="pull-right">Skrevet d. {{ $review->created_at }}</small>
 
-						{{ratingToStars($review->rating)}}	
+					{{ratingToStars($review->rating)}}	
 
-						<h3>{{$review->title}}</h3>
-						<p>{{$review->review}}</p>
-				@endforeach
+					<h3>{{$review->title}}</h3>
+					<p>{{$review->review}}</p>
+				
+
+			@endforeach
+
+			<h4 class="text-align-center">
+				Opret din anmeldelse
+			</h4>
+			<form action="/products/{{$product->id}}/reviews/create" method="post">
+					{{ csrf_field() }}
+					<div class="form-group">
+						<label for="review_title">Overskrift</label>
+						<input type="text" name="review_title" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="review_title">Skriv om produktet her</label>
+						<textarea name="review_content" class="form-control">Skriv din anmeldelse her....</textarea>
+					</div>
+					<div class="form-group">
+					<label for="review_rating">Vælg mellem 1-5, hvor 1 er ringest og 5 er højest</label>
+						<select name="review_rating" class="form-control">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">Opret anmeldelse</button>
+				</form>
 		</div>
 	</div>
 </div>
