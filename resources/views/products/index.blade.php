@@ -2,41 +2,48 @@
 
 @section('content')
 
-<h1>Alle produkter</h1>
+@extends('layouts.app')
 
-@if (count($products) > 0)
-  @foreach ($products as $product)
-    <div class="row product">
-      <div class="col-md-12">
-        <div class="clearfix content-heading">
-          <img class="pull-left col-md-3 img-responsive" src="/images/products/{{ $product->sku }}.jpg"/>
-          <h3>
-          {!! link_to_route('products.show', $product->name, [$product->id]) !!}
-          </h3>
-          <p>
-            <strong>{{ $product->price }} DKK</strong><br />
-            {{ $product->description }}
-          </p>
-          <form action="/purchases" method="POST">
-            {{ csrf_field() }}
-            <script
-              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="{{ config('services.stripe.key') }}"
-              data-amount="{{ $product->price }}"
-              data-name="MrWallsticker"
-              data-description="{{ $product->description }}"
-              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-              data-locale="auto"
-              data-zip-code="true"
-              data-currency="dkk">
-            </script>
-          </form>
-        </div>
-      </div>
+@section('content')
+  <div class="jumbotron banner col-md-12">
+    <div class="col-md-6">
+      <h1>Velkommen til MrWallsticker</h1>
+      <p>Vi leverer top kvalitets wallstickers til billige penge. Det er nemt og hurtigt. Du skal blot finde din wallsticker og trykke køb. Så lander wallstickeren i din postkasse 1-3 dage efter. Smart, ik?</p>
+      <a href="{{ route('products.index') }}">Se udvalget </a>
     </div>
-  @endforeach
-@else
-  <p>The product catalog is currently offline.</p>
-@endif
+  </div>
+  <div class="container-fluid">
+<div class="row">
+  <h2 class="text-align-center">Alle Produkter</h2>
+
+  @if (count($products) > 0)
+    @foreach ($products as $product)
+        <div class="col-md-3 col-sm-12">
+            <div class="product">
+              @foreach ($product->photos as $photo)
+                @if ($loop->first)
+                  <img src="{{$photo->photoPath}}" class="img-responsive product__image">
+                @endif
+              @endforeach
+              <span class="product__category">{{ $product->category->name }}</span>
+              <h3 class="product__title"><a href="/products/{{$product->name}}">{{ $product->name }}</a></h3>
+              <div class="rating">
+                @if (count($reviews) > 0)
+                  {{ ratingToStars($product->reviews->avg('rating')) }}
+                @else
+                  <p>Der er ingen anmeldelser.</p>
+                @endif
+                <div class="prices">
+                  <span class="discount-price">{{ $product->price }}</span>
+                </div>
+              </div>
+            </div>
+        </div>
+    @endforeach
+  @endif
+</div>
+</div>
+@endsection
+
 
 @endsection

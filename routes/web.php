@@ -35,10 +35,14 @@ Route::group(['middleware' => ['web']], function()
 
 	// Cart Routes...
 	Route::get('cart', 'CartController@index');
-	Route::post('cart/store', 'CartController@store');
-	Route::get('cart/remove/{id}', 'CartController@remove');
+	Route::get('/add-to-cart/{id}', [
+		'uses' => 'ProductController@getAddToCart',
+		'as'   => 'product.addToCart'
+	]);
+	// Route::post('cart/store', 'CartController@store');
+	Route::get('cart/remove/{id}', 'ProductController@getRemoveByOne');
 
-	Route::post('checkout', 'PurchasesController@index');
+	//Route::post('checkout', 'PurchasesController@index');
 
 	Route::post('cart/complete', [
 	    'as' => 'cart.complete',

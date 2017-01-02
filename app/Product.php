@@ -16,8 +16,6 @@ class Product extends Model
     protected $dates = ['deleted_at'];
 	protected $fillable = ['name', 'sku', 'price', 'description', 'is_customizable', 'category_id', 'photo_id'];
 
-
-
     public function scopeSlug($query, $name)
     {
         $name = str_replace('-', ' ', $name);

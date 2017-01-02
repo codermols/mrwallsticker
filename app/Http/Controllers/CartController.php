@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App;
+use Session;
 use App\Cart;
 use App\Order;
 use App\Product;
@@ -13,19 +14,33 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller {
 
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
+    // /**
+    //  * Show the cart
+    //  */
+    // public function index()
+    // {
+    //     $cart = Auth::user()->cart;
+    //     return view('cart.index', compact('cart'));
+    // }
+
+  public function index()
+  {
+    // Check if there's any products in cart
+    if (!Session::has('cart')) 
     {
-        $this->middleware('auth');
+      return view('cart.index', ['products' => null]);
     }
 
-    /**
-     * Show the cart
-     */
-    public function index()
-    {
-        $cart = Auth::user()->cart;
-        return view('cart.index', compact('cart'));
-    }
+    $oldCart = Session::get('cart');
+    $cart = new Cart($oldCart);
+
+    return view('cart.index', ['products' => $cart->products, 'totalPrice' => $cart->totalPrice]);
+  }
 
     /**
      * Add an item to the cart
@@ -40,7 +55,7 @@ class CartController extends Controller {
 
         $cart = new Cart([
             'product_id' => $product->id,
-            'qty' => $request->input('product_qty'),
+            'qty' => 1,
             'price' => $product->price,
         ]);
 
@@ -57,9 +72,12 @@ class CartController extends Controller {
      */
     public function remove($id)
     {
-        Auth::user()->cart()
-          ->where('id', $id)->firstOrFail()->delete();
-        return redirect('/cart');
+      // if (Auth::user()) {
+      //   Auth::user()->cart()
+      //     ->where('id', $id)->firstOrFail()->delete();      
+      // }
+
+        return redirect()->back();
     }
 
     /**
@@ -70,38 +88,39 @@ class CartController extends Controller {
      */
     public function complete(Request $request)
     {
+        if (!Session::has('cart'))
+        {
+          return redirect()->back();
+        }
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
 
         $user = Auth::user();
 
-        $total = $user->cart->sum(function($item){
-            return $item->product->price * 100;
-        });
-
         Stripe::setApiKey("sk_test_98bGu6L6WHA0A8hVzFfL0JkF");  
 
-        $customer = Customer::create(array(
-          'email' => $user->email,
-          "source"  => $request->input('stripeToken')
-        ));
+        if (Auth::user()) 
+        {
+            $customer = Customer::create(array(
+              'email' => $user->email,
+              "source"  => $request->input('stripeToken')
+            ));
 
-        try {
-          $charge = Charge::create(array(
-           "customer" => $customer->id,
-           "amount" => $total,
-           "currency" => "dkk",
-           "receipt_email" => $user->email,
-           "description" => "Charge for {$user->email}",
-           "metadata" => array(
-               'name' => $user->name
-             )
+          try {
+            $charge = Charge::create(array(
+             "customer" => $customer->id,
+             "amount" => $cart->totalPrice * 100,
+             "currency" => "dkk",
+             "receipt_email" => $user->email,
+             "description" => "Charge for {$user->email}",
+             "metadata" => array(
+                 'name' => $user->name
+               )
            ));
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
 
           // Add the order
           $order = new Order();
-
           foreach ($user->cart as $productInCart) {
             $order->product_id = $productInCart->product_id;
           }
@@ -122,13 +141,22 @@ class CartController extends Controller {
 
           $order->save();
 
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
           // Update cart to be completed and save it to the database
           foreach ($user->cart as $cart) {
               $cart->order_id = $order->id;
               $cart->complete = 1;
               $cart->save();
           }
+        }
+        
 
+        
+
+          Session::forget('cart');
           return view('checkout.thankyou', compact('order', 'charge'));
     }
 }

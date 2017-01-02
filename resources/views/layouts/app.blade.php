@@ -57,41 +57,9 @@
                   <a href="#" class="dropdown-toggle nav-bars" data-toggle="dropdown">
                     <img class="img-responsive" height="22" width="22" src="/images/icons/menu-icon.svg" class="nav-bars">MENU
                   </a>
+
                   <ul class="dropdown-menu mega-dropdown-menu row">
-                    <li class="col-sm-3">
-                      <ul>
-                        <li class="dropdown-header">New in Stores</li>
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                          <div class="carousel-inner">
-                            <div class="item active">
-                              <a href="#"><img src="http://placehold.it/254x150/3498db/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 1"></a>
-                              <h4><small>Summer dress floral prints</small></h4>
-                              <button class="btn btn-primary" type="button">49,99 €</button>
-                              <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
-                            </div>
-                            <!-- End Item -->
-                            <div class="item">
-                              <a href="#"><img src="http://placehold.it/254x150/ef5e55/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 2"></a>
-                              <h4><small>Gold sandals with shiny touch</small></h4>
-                              <button class="btn btn-primary" type="button">9,99 €</button>
-                              <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
-                            </div>
-                            <!-- End Item -->
-                            <div class="item">
-                              <a href="#"><img src="http://placehold.it/254x150/2ecc71/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 3"></a>
-                              <h4><small>Denin jacket stamped</small></h4>
-                              <button class="btn btn-primary" type="button">49,99 €</button>
-                              <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
-                            </div>
-                            <!-- End Item -->
-                          </div>
-                          <!-- End Carousel Inner -->
-                        </div>
-                        <!-- /.carousel -->
-                        <li class="divider"></li>
-                        <li><a href="#">View all Collection <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
-                      </ul>
-                    </li>
+
                     <li class="col-sm-3">
                       <ul>
                         <li class="dropdown-header">Dresses</li>
@@ -141,22 +109,19 @@
               </ul>
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Log ind</a></li>
-                        <li><a href="{{ url('/opret') }}">Opret bruger</a></li>
-                    @else
                       <li class="dropdown">
-
                         <a href="/cart"><img class="img-responsive" src="/images/icons/shoppingbag-icon.svg" />
-                          @if (Auth::user()->cart->count() !== 0)
-                            <i>{{Auth::user()->cart->count()}}</i>
-                          @endif
+                          <i>{{ Session::has('cart') ? Session::get('cart')->totalQty : '' }}</i>
                         </a>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                           <img class="img-responsive" src="/images/icons/profile-icon.svg" />
                         </a>
                         <ul class="dropdown-menu" role="menu">
+                          <!-- Authentication Links -->
+                          @if (Auth::guest())
+                              <li><a href="{{ url('/login') }}">Log ind</a></li>
+                              <li><a href="{{ url('/opret') }}">Opret bruger</a></li>
+                          @else
                             <li>
                                 <a href="{{ url('/admin') }}">Dashboard</a>
                                 <a href="{{ url('/logout') }}"
@@ -212,22 +177,22 @@
       <div class="footer-nav">
         <ul class="col-md-8">
           <li>
-            <a href="/">
+            <a href="/faq">
               FAQ - Ofte stillede spørgsmål
             </a>
           </li>
           <li>
-            <a href="/">
+            <a href="/handelsbetingelser">
               Handelsbetingelser
             </a>
           </li>
           <li>
-            <a href="/">
+            <a href="/cookies">
               Cookies
             </a>
           </li>
           <li>
-            <a href="/">
+            <a href="/kontakt">
               Kontakt os
             </a>
           </li>

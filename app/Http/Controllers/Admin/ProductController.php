@@ -50,7 +50,6 @@ class ProductController extends Controller
           'name'        	=> $request->get('name'),
           'sku'         	=> $request->get('sku'),
           'price'       	=> $request->get('price'),
-          // 'photoPath'       => $request->get('photoPath'),
           'description' 	=> $request->get('description'),
           'category_id'     => $request->get('category_name'),
           'is_customizable' => $request->get('is_customizable')

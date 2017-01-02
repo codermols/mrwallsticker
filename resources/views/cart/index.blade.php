@@ -2,36 +2,37 @@
 
 @section('content')
     <div class="row">
-    <h1>Cart</h1>
+    <h1>Indkøbskurv</h1>
 
-    @if (count($cart) == 0)
-        <p>Your cart is currently empty</p>
-    @else
+    @if (Session::has('cart'))
         <table class="table table-border">
             <thead>
             <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Price</th>
+                <th>Fjern produkt</th>
+                <th>Navn</th>
+                <th>Antal</th>
+                <th>Pris</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($cart as $item)
+            @foreach ($products as $inCart)
                 <tr>
-                <td><a href="/cart/remove/{{ $item->id }}">x</a></td>
-                <td>{{ $item->product->name }}</td>
-                <td>{{ $item->product->price }} DKK</td>
+                    <td><a href="/cart/remove/{{ $inCart['product']['id'] }}">x</a></td>
+                    <td>{{ $inCart['product']['name'] }}</td>
+                    <td>{{ $inCart['qty'] }}</td>   
+                    <td>{{ $inCart['product']['price'] }} DKK</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
 
         <hr/>
+        
         <div class="container">
 	        <div class="col-sm-12 col-md-12">
-	            <div id="charge-error" class="alert alert-danger {{ !Session::has('error') ? 'hidden' : ''  }}">
+{{-- 	            <div id="charge-error" class="alert alert-danger {{ !Session::has('error') ? 'hidden' : ''  }}">
 	                {{ Session::get('error') }}
-	            </div>
+	            </div> --}}
             </div>
             <div class="col-sm-12 col-md-12">
 	            <form action="{{ route('cart.complete') }}" method="post" id="checkout-form">
@@ -39,7 +40,7 @@
 	            	<h3>Forsendelsinformationer</h3>
 	            		<div class="form-group">
 	            			<label for="shipping_name">Fulde Navn</label>
-	            			<input type="text" class="form-control" id="shipping_name" name="shipping_name" value="{{ Auth::user()->name }}" required>
+	            			<input type="text" class="form-control" id="shipping_name" name="shipping_name" required>
 	            		</div>
 	            		<div class="form-group">
 	            			<label for="shipping_address">Adresse</label>
@@ -66,7 +67,7 @@
 	            	<h3>Betalingsinformationer</h3>
 	            		<div class="form-group">
 	            			<label for="card_name">Kortholderens navn</label>
-	            			<input type="text" class="form-control" id="card_name" name="card_name" value="{{ Auth::user()->name }}" required>
+	            			<input type="text" class="form-control" id="card_name" name="card_name" required>
 	            		</div>
 	            		<div class="form-group">
 	            			<label for="card-name">Kortnummer</label>
@@ -104,6 +105,8 @@
 	        </div>	
         </div>
     </div>
+    @else 
+        <p>Der er ingen varer i kurven</p>
     @endif
 @endsection
 

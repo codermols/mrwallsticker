@@ -22,6 +22,7 @@
 body {
   font-weight: 600;
   @include rem('letter-spacing', 1px);
+  @include rem('padding-top', 40px);
 }
 
 h1 {

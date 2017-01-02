@@ -19,16 +19,7 @@
 	<div class="col-md-8">
 		<span class="product-show__category">{{$product->category->name}}</span>
 		<h1 class="product-show__name">{{$product->name}}</h1>
-		{!! Form::open(['url' => '/cart/store']) !!}
-		<select class="btn btn-lg btn-default" name="product_qty">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-		</select>
-
-
+		
 		<div class="product-show__rating">
 			@if (count($reviews) > 0)
 				{{ ratingToStars($product->reviews->avg('rating')) }}
@@ -38,14 +29,16 @@
 		</div>
 
 		<div class="product-show__price">
+		{{-- {!! Form::open(['url' => '/cart/store']) !!} --}}
 			<span>{{$product->price}},-</span>
 			<div class="product-show__action">
-				<input type="hidden" name="product_id" value="{{ $product->id }}"/>
-				<button type="submit" class="btn btn-primary btn-lg">Læg i kurv</button>
+				{{-- <input type="hidden" name="product_id" value="{{ $product->id }}"/> --}}
+				{{-- <button type="submit" class="btn btn-primary btn-lg">Læg i kurv</button> --}}
+				<a href="{{ route('product.addToCart', ['id' => $product->id])  }}" class="btn btn-primary btn-lg">Læg i kurv</a>
 				<button class="like btn btn-lg btn-default" type="button">
 					<span class="fa fa-heart"></span>
 				</button>
-		{!! Form::close() !!}
+		{{-- {!! Form::close() !!} --}}
 
 				{{-- <button class="add-to-cart btn btn-default" type="button">add to cart</button> --}}
 			</div>
@@ -62,26 +55,29 @@
 	<h2 class="text-align-center">Relaterede produkter</h2>
 	@foreach ($relatedProducts as $relatedProduct)
 		@if ($product->id !== $relatedProduct->id)
-		  	<div class="product col-md-3">
+		  	<div class="col-md-3">
+		  		<div class="product">
 		  		@foreach ($relatedProduct->photos as $photo)
 		  		<div class="product__image">
 		  			@if ($loop->first)
-	  					<img src="{{$photo->photoPath}}" class="img-responsive">
+	  					<img src="{{$photo->photoPath}}" class="img-responsive product__image">
 		  			@endif
 		  		</div>
 				@endforeach
 		  		<span class="product__category">{{ $relatedProduct->category->name }}</span>
-		  		<h3 class="product__title"><a href="/products/{{$relatedProduct->name}}">{{ $relatedProduct->name }}</a></h3>
+		  		<h3 class="product__title">
+		  			<a href="/products/{{$relatedProduct->name}}">{{ $relatedProduct->name }}</a>
+  				</h3>
 		  		<div class="rating">
-		  			<img src="/images/icons/heart.svg" alt="">
-		  			<img src="/images/icons/outlined-heart.svg" alt="">
-		  			<img src="/images/icons/outlined-heart.svg" alt="">
-		  			<img src="/images/icons/outlined-heart.svg" alt="">
-		  			<img src="/images/icons/outlined-heart.svg" alt="">
+		  			@if (count($reviews) > 0)
+		  			  {{ ratingToStars($relatedProduct->reviews->avg('rating')) }}
+		  			@else
+		  			  <p>Der er ingen anmeldelser.</p>
+		  			@endif
 		  			<div class="prices">        
-		  				<span class="old-price">{{ $relatedProduct->price }}</span>
 		  				<span class="discount-price">{{ $relatedProduct->price }}</span>
 		  			</div>
+		  		</div>
 		  		</div>
 		  	</div>
 	  	@endif
@@ -90,40 +86,55 @@
 
 <div class="row">
 	<h3 class="text-align-center">Anmeldelser</h3>
+	<div class="col-md-6">
+		<div class="review">
+			    @foreach ($reviews as $review)
+					@if (count($reviews) > 0) 
+						@if (Auth::user())
+							<p>logged in</p>
+						@endif
+						<small>{{$review->name}}</small>
+						<small class="pull-right">Skrevet d. {{ $review->created_at }}</small>
 
-	@if (count($reviews) > 0) 
-		@foreach ($reviews as $review)
-			<small>{{$review->name}}</small>
+						{{ratingToStars($review->rating)}}	
 
-			{{ratingToStars($review->rating)}}	
+						<h3>{{$review->title}}</h3>
+						<p>{{$review->review}}</p>
+					
+					@else
+					<form action="/products/{{$product->id}}/reviews/create" method="post">
+						{{ csrf_field() }}
+						<div class="form-group">
+							<label for="review_title">Overskrift</label>
+							<input type="text" name="review_title" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="review_title">Skriv om produktet her</label>
+							<textarea name="review_content" class="form-control">Skriv din anmeldelse her....</textarea>
+						</div>
+						<div class="form-group">
+						<label for="review_rating">Vælg mellem 1-5, hvor 1 er ringest og 5 er højest</label>
+							<select name="review_rating" class="form-control">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary btn-lg">Opret anmeldelse</button>
+					</form>
 
-			<h3>{{$review->title}}</h3>
-			<p>{{$review->review}}</p>
-		@endforeach
-	@else
-	<form action="/products/{{$product->id}}/reviews/create" method="post">
-		{{ csrf_field() }}
-		<div class="form-group">
-			<label for="review_title">Overskrift</label>
-			<input type="text" name="review_title" class="form-control" />
+					<small>{{$review->name}}</small>
+
+						{{ratingToStars($review->rating)}}	
+
+						<h3>{{$review->title}}</h3>
+						<p>{{$review->review}}</p>
+					@endif
+				@endforeach
 		</div>
-		<div class="form-group">
-			<label for="review_title">Skriv om produktet her</label>
-			<textarea name="review_content" class="form-control">Skriv din anmeldelse her....</textarea>
-		</div>
-		<div class="form-group">
-		<label for="review_rating">Vælg mellem 1-5, hvor 1 er ringest og 5 er højest</label>
-			<select name="review_rating" class="form-control">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-			</select>
-		</div>
-		<button type="submit" class="btn btn-primary btn-lg">Opret anmeldelse</button>
-	</form>
-	@endif
+	</div>
 </div>
 
 @endsection
