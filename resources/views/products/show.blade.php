@@ -90,9 +90,6 @@
 		<div class="review">
 			    @foreach ($reviews as $review)
 					@if (count($reviews) > 0) 
-						@if (Auth::user())
-							<p>logged in</p>
-						@endif
 						<small>{{$review->name}}</small>
 						<small class="pull-right">Skrevet d. {{ $review->created_at }}</small>
 
