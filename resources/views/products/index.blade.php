@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-@extends('layouts.app')
-
-@section('content')
   <div class="jumbotron banner col-md-12">
     <div class="col-md-6">
       <h1>Velkommen til MrWallsticker</h1>
@@ -43,7 +39,4 @@
   @endif
 </div>
 </div>
-@endsection
-
-
 @endsection
