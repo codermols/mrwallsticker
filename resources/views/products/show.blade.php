@@ -89,6 +89,7 @@
 	<div class="col-md-6">
 		<div class="review">
 		    @foreach ($reviews as $review)
+		    	@if (count($review) > 0)
 					<small>{{$review->name}}</small>
 					<small class="pull-right">Skrevet d. {{ $review->created_at }}</small>
 
@@ -96,7 +97,7 @@
 
 					<h3>{{$review->title}}</h3>
 					<p>{{$review->review}}</p>
-				
+				@endif
 
 			@endforeach
 
