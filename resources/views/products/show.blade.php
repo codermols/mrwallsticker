@@ -126,7 +126,6 @@
 
 						<h3>{{$review->title}}</h3>
 						<p>{{$review->review}}</p>
-					@endif
 				@endforeach
 		</div>
 	</div>
